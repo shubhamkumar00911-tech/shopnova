@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart | ShopNova</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 3rem;
+      padding: 4rem 0;
+    }
+    
+    /* Cart Items */
+    .cart-items {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .cart-item {
+      display: grid;
+      grid-template-columns: 80px 1fr auto auto auto;
+      gap: 1.5rem;
+      align-items: center;
+      padding: 1.5rem;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+    .cart-item-img {
+      width: 80px; height: 80px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+    }
+    .cart-item-info h4 { margin-bottom: 0.25rem; }
+    .cart-item-remove {
+      color: var(--color-error);
+      background: rgba(239, 68, 68, 0.1);
+      width: 40px; height: 40px;
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      transition: all var(--transition-fast);
+    }
+    .cart-item-remove:hover {
+      background: var(--color-error);
+      color: white;
+    }
+
+    /* Order Summary */
+    .cart-summary {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+    .summary-row {
+      display: flex; justify-content: space-between;
+      margin-bottom: 1rem;
+      color: var(--color-text-muted);
+    }
+    .summary-total {
+      display: flex; justify-content: space-between;
+      margin-top: 1.5rem; padding-top: 1.5rem;
+      border-top: 1px solid var(--color-border);
+      font-size: 1.25rem; font-weight: 700; color: var(--color-text);
+    }
+    .coupon-box {
+      display: flex; gap: 0.5rem; margin-bottom: 2rem;
+    }
+    .coupon-box input { flex-grow: 1; }
+
+    /* Empty State */
+    .empty-cart {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 5rem 0; text-align: center; display: none;
+    }
+    .empty-cart-icon { font-size: 5rem; margin-bottom: 1rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .cart-layout { grid-template-columns: 1fr; }
+      .cart-item {
+        grid-template-columns: 80px 1fr;
+        grid-template-rows: auto auto;
+        gap: 1rem;
+      }
+      .cart-item-info { grid-column: 2; grid-row: 1; }
+      .pd-qty-controls { grid-column: 2; grid-row: 2; justify-self: start; }
+      .cart-item-price { grid-column: 2; grid-row: 2; justify-self: center; }
+      .cart-item-remove { grid-column: 2; grid-row: 2; justify-self: end; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container navbar__container">
+      <a href="index.html" class="navbar__logo">ShopNova</a>
+      <div class="navbar__links">
+        <a href="index.html" class="navbar__link">Home</a>
+        <a href="products.html" class="navbar__link">Products</a>
+        <a href="about.html" class="navbar__link">About</a>
+        <a href="contact.html" class="navbar__link">Contact</a>
+      </div>
+      <div class="navbar__actions">
+        <a href="cart.html" class="cart-icon" aria-label="Cart">
+          🛒
+          <span class="cart-badge" style="display: none;">0</span>
+        </a>
+        <div class="hamburger">☰</div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-5">
+    <h1 class="mb-4">Your Cart</h1>
+    
+    <div id="empty-cart" class="empty-cart">
+      <div class="empty-cart-icon">🛍️</div>
+      <h2>Your cart is empty</h2>
+      <p class="text-muted mb-4">Looks like you haven't added anything to your cart yet.</p>
+      <a href="products.html" class="btn btn--primary">Continue Shopping</a>
+    </div>
+
+    <div id="cart-content" class="cart-layout">
+      <!-- Cart Items -->
+      <div id="cart-items" class="cart-items reveal active">
+        <!-- JS Injected -->
+      </div>
+
+      <!-- Order Summary -->
+      <div class="cart-summary reveal active">
+        <h3 class="mb-3">Order Summary</h3>
+        
+        <div class="coupon-box">
+          <input type="text" id="coupon-input" class="form-input" placeholder="Coupon code (Try NOVA10)">
+          <button id="coupon-btn" class="btn btn--outline">Apply</button>
+        </div>
+
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span id="cart-subtotal" class="fw-semibold text-primary">₹0</span>
+        </div>
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span id="cart-shipping" class="fw-semibold text-primary">₹0</span>
+        </div>
+        <div id="discount-row" class="summary-row" style="display: none; color: var(--color-success);">
+          <span>Discount (10%)</span>
+          <span id="cart-discount" class="fw-semibold">-₹0</span>
+        </div>
+
+        <div class="summary-total">
+          <span>Grand Total</span>
+          <span id="cart-total">₹0</span>
+        </div>
+
+        <a href="checkout.html" class="btn btn--primary btn--full mt-4">Proceed to Checkout</a>
+        
+        <div class="mt-4 text-center">
+          <p class="text-muted" style="font-size: 0.875rem;">🔒 Secure Checkout</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+  <script src="cart.js"></script>
+</body>
+</html>

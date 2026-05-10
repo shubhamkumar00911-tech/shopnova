@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products | ShopNova</title>
+  <meta name="description" content="Browse our complete collection of high-quality products.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .page-header {
+      background-color: var(--color-primary);
+      color: white;
+      padding: 3rem 0;
+      text-align: center;
+    }
+    .shop-layout {
+      display: flex;
+      gap: 2rem;
+      padding: 3rem 0;
+    }
+    
+    /* Sidebar */
+    .shop-sidebar {
+      width: 280px;
+      flex-shrink: 0;
+    }
+    .filter-section {
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .filter-title {
+      font-size: 1.125rem;
+      margin-bottom: 1rem;
+    }
+    .filter-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+    }
+    
+    /* Price Slider */
+    input[type=range] {
+      width: 100%;
+      margin: 1rem 0;
+    }
+    
+    /* Active Filters */
+    .active-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .filter-tag {
+      background: var(--color-primary-light);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+      font-size: 0.875rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .filter-tag button {
+      color: white;
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+    .filter-tag.clear-all {
+      background: var(--color-border);
+      color: var(--color-text);
+      cursor: pointer;
+    }
+
+    /* Product Grid */
+    .shop-main {
+      flex-grow: 1;
+    }
+    .shop-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    .shop-controls select {
+      padding: 0.5rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+    }
+    
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    /* Empty State */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem 0;
+      text-align: center;
+      display: none; /* hidden by default */
+    }
+    .empty-state__icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 3rem;
+    }
+    .page-link {
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+    }
+    .page-link:hover, .page-link.active {
+      background: var(--color-primary);
+      color: white;
+      border-color: var(--color-primary);
+    }
+
+    /* Mobile Filters */
+    .mobile-filter-btn {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .shop-layout { flex-direction: column; }
+      .mobile-filter-btn { display: inline-flex; margin-bottom: 1rem; }
+      .shop-sidebar {
+        display: none;
+        width: 100%;
+        background: var(--color-surface);
+        padding: 1rem;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+      }
+      .shop-sidebar.active { display: block; }
+      .shop-controls { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loading Splash Screen -->
+  <div id="splash-screen" class="splash-screen">
+    <div class="splash-logo">ShopNova</div>
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container navbar__container">
+      <a href="index.html" class="navbar__logo">ShopNova</a>
+      <div class="navbar__links">
+        <a href="index.html" class="navbar__link">Home</a>
+        <a href="products.html" class="navbar__link active">Products</a>
+        <a href="about.html" class="navbar__link">About</a>
+        <a href="contact.html" class="navbar__link">Contact</a>
+      </div>
+      <div class="navbar__actions">
+        <a href="cart.html" class="cart-icon" aria-label="Cart">
+          🛒
+          <span class="cart-badge" style="display: none;">0</span>
+        </a>
+        <div class="hamburger">☰</div>
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <div class="container">
+      <h1>All Products</h1>
+      <p>Find the best deals on premium products</p>
+    </div>
+  </header>
+
+  <main class="container shop-layout">
+    
+    <!-- Filters -->
+    <aside class="shop-sidebar">
+      <form id="filter-form">
+        <div class="filter-section">
+          <h3 class="filter-title">Categories</h3>
+          <label class="filter-label"><input type="checkbox" name="category" value="Electronics"> Electronics</label>
+          <label class="filter-label"><input type="checkbox" name="category" value="Home & Living"> Home & Living</label>
+          <label class="filter-label"><input type="checkbox" name="category" value="Fitness"> Fitness</label>
+          <label class="filter-label"><input type="checkbox" name="category" value="Kitchen"> Kitchen</label>
+          <label class="filter-label"><input type="checkbox" name="category" value="Health"> Health</label>
+          <label class="filter-label"><input type="checkbox" name="category" value="Accessories"> Accessories</label>
+        </div>
+
+        <div class="filter-section">
+          <h3 class="filter-title">Price Range</h3>
+          <div class="d-flex justify-between">
+            <span>₹0</span>
+            <span id="price-output">₹5000</span>
+          </div>
+          <input type="range" name="price" id="price-filter" min="0" max="5000" step="100" value="5000">
+        </div>
+
+        <div class="filter-section">
+          <h3 class="filter-title">Rating</h3>
+          <label class="filter-label"><input type="radio" name="rating" value="4"> 4 Stars & Up</label>
+          <label class="filter-label"><input type="radio" name="rating" value="3"> 3 Stars & Up</label>
+        </div>
+      </form>
+    </aside>
+
+    <!-- Product Grid Area -->
+    <div class="shop-main">
+      <button id="mobile-filter-btn" class="btn btn--outline mobile-filter-btn">⚙️ Filter Products</button>
+      
+      <div id="active-filters" class="active-filters"></div>
+
+      <div class="shop-controls">
+        <p class="text-muted">Showing 1-12 of 12 results</p>
+        <select form="filter-form" name="sort">
+          <option value="newest">Newest</option>
+          <option value="popular">Most Popular</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+        </select>
+      </div>
+
+      <div id="product-grid" class="products-grid">
+        <!-- JS injects products here -->
+      </div>
+
+      <div id="empty-state" class="empty-state">
+        <div class="empty-state__icon">🔍</div>
+        <h3>No products found</h3>
+        <p class="text-muted">Try adjusting your filters to find what you're looking for.</p>
+      </div>
+
+      <!-- Pagination (Static representation) -->
+      <div class="pagination">
+        <a href="#" class="page-link">&laquo;</a>
+        <a href="#" class="page-link active">1</a>
+        <a href="#" class="page-link">2</a>
+        <a href="#" class="page-link">3</a>
+        <a href="#" class="page-link">&raquo;</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <h3 class="footer__title" style="color: var(--color-primary); font-size: 1.5rem;">ShopNova</h3>
+          <p class="text-muted">Quality Delivered to Your Door.</p>
+          <div class="social-icons">
+            <a href="#" class="social-icon">📸</a>
+            <a href="#" class="social-icon">📘</a>
+            <a href="https://wa.me/910000000000" class="social-icon">💬</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__title">Quick Links</h4>
+          <div class="footer__links">
+            <a href="index.html" class="footer__link">Home</a>
+            <a href="products.html" class="footer__link">Shop</a>
+            <a href="about.html" class="footer__link">About Us</a>
+            <a href="contact.html" class="footer__link">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__title">Customer Service</h4>
+          <div class="footer__links">
+            <a href="#" class="footer__link">Track Order</a>
+            <a href="#" class="footer__link">Shipping Policy</a>
+            <a href="#" class="footer__link">Returns & Exchanges</a>
+            <a href="#" class="footer__link">FAQ</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>Made with ❤️ in India. &copy; 2026 ShopNova. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="products.js"></script>
+  <script src="main.js"></script>
+  <script src="shop.js"></script>
+</body>
+</html>
