@@ -1,0 +1,162 @@
+const products = [
+  {
+    id: 1,
+    name: "Multipurpose Kitchen Chopper",
+    category: "Kitchen",
+    price: 1299,
+    originalPrice: 1999,
+    rating: 4.5,
+    reviewCount: 234,
+    image: "https://picsum.photos/seed/chopper/400/400",
+    badge: "Best Seller",
+    description: "Chop, dice, and mince effortlessly with this versatile kitchen tool. Ergonomic design saves time and effort in food preparation.",
+    specs: { material: "Stainless Steel & ABS Plastic", weight: "450g", warranty: "1 Year" }
+  },
+  {
+    id: 2,
+    name: "Ergonomic Office Chair Cushion",
+    category: "Home & Living",
+    price: 899,
+    originalPrice: 1499,
+    rating: 4.2,
+    reviewCount: 156,
+    image: "https://picsum.photos/seed/cushion/400/400",
+    badge: "Trending",
+    description: "Relieve back pain and improve posture during long working hours. Made with premium memory foam.",
+    specs: { material: "Memory Foam", weight: "600g", warranty: "6 Months" }
+  },
+  {
+    id: 3,
+    name: "Wireless Bluetooth Earbuds Pro",
+    category: "Electronics",
+    price: 2499,
+    originalPrice: 4999,
+    rating: 4.8,
+    reviewCount: 892,
+    image: "https://picsum.photos/seed/earbuds/400/400",
+    badge: "Sale",
+    description: "Experience crystal clear audio with active noise cancellation. Enjoy up to 24 hours of playback.",
+    specs: { material: "Plastic", weight: "50g", warranty: "1 Year" }
+  },
+  {
+    id: 4,
+    name: "LED Desk Lamp with Wireless Charger",
+    category: "Electronics",
+    price: 1599,
+    originalPrice: 2999,
+    rating: 4.6,
+    reviewCount: 412,
+    image: "https://picsum.photos/seed/desklamp/400/400",
+    badge: "New",
+    description: "Illuminate your workspace while charging your phone. Features 3 color modes and dimmable brightness.",
+    specs: { material: "Aluminum Alloy", weight: "800g", warranty: "1 Year" }
+  },
+  {
+    id: 5,
+    name: "Resistance Band Set (5 Pack)",
+    category: "Fitness",
+    price: 599,
+    originalPrice: 999,
+    rating: 4.4,
+    reviewCount: 320,
+    image: "https://picsum.photos/seed/bands/400/400",
+    badge: "",
+    description: "Achieve your fitness goals anywhere. Perfect for yoga, pilates, and strength training.",
+    specs: { material: "Natural Latex", weight: "200g", warranty: "No Warranty" }
+  },
+  {
+    id: 6,
+    name: "Smart Posture Corrector",
+    category: "Health",
+    price: 1199,
+    originalPrice: 1999,
+    rating: 4.1,
+    reviewCount: 185,
+    image: "https://picsum.photos/seed/posture/400/400",
+    badge: "Best Seller",
+    description: "Vibrates gently when you slouch to train your muscles. Comfortable to wear under clothing.",
+    specs: { material: "Nylon & Silicone", weight: "120g", warranty: "6 Months" }
+  },
+  {
+    id: 7,
+    name: "Portable Blender Juicer Cup",
+    category: "Kitchen",
+    price: 1499,
+    originalPrice: 2499,
+    rating: 4.3,
+    reviewCount: 275,
+    image: "https://picsum.photos/seed/blender/400/400",
+    badge: "",
+    description: "Blend smoothies and shakes on the go. USB rechargeable and easy to clean.",
+    specs: { material: "Food Grade PC & Steel", weight: "550g", warranty: "6 Months" }
+  },
+  {
+    id: 8,
+    name: "Acupressure Foot Massage Slippers",
+    category: "Health",
+    price: 799,
+    originalPrice: 1299,
+    rating: 3.9,
+    reviewCount: 142,
+    image: "https://picsum.photos/seed/slippers/400/400",
+    badge: "",
+    description: "Stimulates foot reflexology points to relieve stress and tension after a long day.",
+    specs: { material: "PVC & Stone", weight: "400g", warranty: "No Warranty" }
+  },
+  {
+    id: 9,
+    name: "Magnetic Car Phone Mount",
+    category: "Accessories",
+    price: 399,
+    originalPrice: 799,
+    rating: 4.7,
+    reviewCount: 650,
+    image: "https://picsum.photos/seed/carmount/400/400",
+    badge: "Sale",
+    description: "Secure your phone easily while driving. 360-degree rotation for optimal viewing angles.",
+    specs: { material: "Zinc Alloy & Magnet", weight: "100g", warranty: "6 Months" }
+  },
+  {
+    id: 10,
+    name: "Reusable Silicone Food Storage Bags",
+    category: "Kitchen",
+    price: 899,
+    originalPrice: 1499,
+    rating: 4.6,
+    reviewCount: 210,
+    image: "https://picsum.photos/seed/siliconebags/400/400",
+    badge: "Eco-Friendly",
+    description: "Reduce plastic waste with these durable, leak-proof bags. Microwave and dishwasher safe.",
+    specs: { material: "Food Grade Silicone", weight: "300g", warranty: "1 Year" }
+  },
+  {
+    id: 11,
+    name: "Yoga Mat with Alignment Lines",
+    category: "Fitness",
+    price: 1299,
+    originalPrice: 2199,
+    rating: 4.8,
+    reviewCount: 430,
+    image: "https://picsum.photos/seed/yogamat/400/400",
+    badge: "Trending",
+    description: "Perfect your poses with built-in alignment guides. Non-slip, eco-friendly TPE material.",
+    specs: { material: "TPE", weight: "900g", warranty: "No Warranty" }
+  },
+  {
+    id: 12,
+    name: "Sunset Projection Lamp",
+    category: "Home & Living",
+    price: 699,
+    originalPrice: 1299,
+    rating: 4.5,
+    reviewCount: 380,
+    image: "https://picsum.photos/seed/sunsetlamp/400/400",
+    badge: "New",
+    description: "Create a relaxing golden hour vibe in your room. Great for photography and ambiance.",
+    specs: { material: "Aluminum & Glass", weight: "350g", warranty: "6 Months" }
+  }
+];
+
+if (typeof module !== 'undefined') {
+  module.exports = products;
+}
